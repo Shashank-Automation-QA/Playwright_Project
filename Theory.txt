@@ -1,0 +1,634 @@
+selenium 
+If 100 lines of code then 100 request will be sent.
+
+
+playwright
+If 100 lines of code then 1 request will be sent.
+we can write locator with role it is most recommended.
+
+**************************************************************************
+General Arow Function Syntax
+const myFunction = (parameters1, parameters2) => {
+
+// code
+
+};
+
+
+
+Playwright Arow Function 
+test('has title', async ({ page }) => {
+
+//code
+
+});
+
+**************************************************************************
+ Breakup of playwright code
+
+test name = "has title"
+
+const myTestFunction = async ({ page }) => {
+// code
+};
+
+
+First method 
+test(test name, myTestFunction);
+
+
+
+Second method
+test('has title', async ({ page }) => {
+// code
+});
+
+
+check below code for more understanding
+        
+function   test case name     anonymous function
+              1st para         2nd para rest all code
+test       ('has title',     async ({ page }) => {  //code  });
+
+
+// =====================================================
+// ARROW FUNCTIONS IN TYPESCRIPT - QUICK NOTES
+// =====================================================
+
+// 1. No Parameter Arrow Function
+
+const showMessage = () => {
+    console.log("Hello");
+};
+
+// Syntax:
+// () => {}
+
+
+// =====================================================
+
+// 2. Single Parameter Arrow Function
+
+const greet = (name: string) => {
+    console.log(name);
+};
+
+// Syntax:
+// (parameter) => {}
+
+
+// =====================================================
+
+// 3. Multiple Parameter Arrow Function
+
+const add = (a: number, b: number) => {
+    return a + b;
+};
+
+// Syntax:
+// (parameter1, parameter2) => {}
+
+
+// =====================================================
+
+// 4. Implicit Return Arrow Function
+
+const square = (num: number) => num * num;
+
+// Syntax:
+// (parameter) => expression
+
+// Equivalent to:
+
+const square2 = (num: number) => {
+    return num * num;
+};
+
+
+// =====================================================
+
+// 5. Explicit Return Arrow Function
+
+const multiply = (a: number, b: number) => {
+    return a * b;
+};
+
+// Syntax:
+// (parameter) => {
+//     return value;
+// }
+
+
+// =====================================================
+
+// 6. Arrow Function with Return Type
+
+const getMessage = (name: string): string => {
+    return `Hello ${name}`;
+};
+
+// Syntax:
+// (parameter): returnType => {}
+
+
+// =====================================================
+
+// 7. Async Arrow Function
+
+const getData = async () => {
+    console.log("Fetching Data");
+};
+
+// Syntax:
+// async () => {}
+
+
+// =====================================================
+
+// 8. Async Arrow Function with Parameter
+
+const getUser = async (id: number) => {
+    console.log(id);
+};
+
+// Syntax:
+// async (parameter) => {}
+
+
+// =====================================================
+
+// 9. Async Arrow Function with Return Type
+
+const getResult = async (): Promise<string> => {
+    return "PASS";
+};
+
+// Syntax:
+// async (): Promise<Type> => {}
+
+
+// =====================================================
+
+// 10. Object Destructuring Arrow Function
+
+const displayUser = ({ name, age }) => {
+    console.log(name);
+    console.log(age);
+};
+
+// Syntax:
+// ({ property1, property2 }) => {}
+
+
+// =====================================================
+
+// 11. Array map() Arrow Function
+
+const ids = ["TC-001", "TC-002"];
+
+const updatedIds = ids.map(id => `Run-${id}`);
+
+// Syntax:
+// item => expression
+
+
+// =====================================================
+
+// 12. Array filter() Arrow Function
+
+const testCases = ["TC-001", "TC-002", "TC-003"];
+
+const regressionCases = testCases.filter(
+    tc => tc !== "TC-003"
+);
+
+// Syntax:
+// item => condition
+
+
+// =====================================================
+
+// 13. Array forEach() Arrow Function
+
+const users = ["Shashank", "Rahul", "Amit"];
+
+users.forEach(user => {
+    console.log(user);
+});
+
+// Syntax:
+// item => {}
+
+
+// =====================================================
+
+// 14. Playwright Test Arrow Function
+
+test('has title', async ({ page }) => {
+
+});
+
+// Syntax:
+// async ({ page }) => {}
+
+
+// =====================================================
+
+// 15. Playwright describe Arrow Function
+
+test.describe('Smoke Tests', () => {
+
+});
+
+// Syntax:
+// () => {}
+
+
+// =====================================================
+
+// MOST COMMON INTERVIEW SYNTAXES
+// =====================================================
+
+// No Parameter
+() => {}
+
+// One Parameter
+(name) => {}
+
+// Multiple Parameters
+(a, b) => {}
+
+// Implicit Return
+name => name.toUpperCase()
+
+// Explicit Return
+(name) => {
+    return name.toUpperCase();
+}
+
+// Async Function
+async () => {}
+
+// Async with Parameter
+async (id) => {}
+
+// Return Type
+(name): string => {}
+
+// Object Destructuring
+({ name, age }) => {}
+
+// Playwright Style
+async ({ page }) => {}
+
+
+how to writ locator
+
+page.locator('#name')                          // id="name"
+page.locator('.btn')                           // class="btn"
+page.locator('input')                          // <input>
+page.locator('[type="text"]')                  // type="text"
+page.locator('[placeholder="Enter Name"]')     // placeholder="Enter Name"
+page.locator('[name="stop"]')                  // name="stop"
+
+************************************** Methods wich we can use with expect() ***************************************************
+
+// =========================
+// Generic Expect Methods
+// =========================
+
+expect(actual).toBe(expected)
+expect(actual).toEqual(expected)
+expect(actual).toStrictEqual(expected)
+
+expect(actual).toBeTruthy()
+expect(actual).toBeFalsy()
+
+expect(actual).toBeNull()
+expect(actual).toBeUndefined()
+expect(actual).toBeDefined()
+
+expect(actual).toContain(value)
+expect(actual).toMatch(regex)
+
+expect(actual).toBeGreaterThan(number)
+expect(actual).toBeGreaterThanOrEqual(number)
+
+expect(actual).toBeLessThan(number)
+expect(actual).toBeLessThanOrEqual(number)
+
+expect(actual).toHaveLength(length)
+
+expect(actual).toHaveProperty(property)
+expect(actual).toBeInstanceOf(Class)
+
+expect(actual).toContainEqual(value)
+
+expect(actual).toMatchObject(object)
+
+expect(actual).toBeCloseTo(number)
+
+expect(actual).toThrow()
+expect(actual).toThrowError()
+
+expect(actual).not.toBe(expected)
+
+
+// =========================
+// Locator Assertions
+// =========================
+
+await expect(locator).toBeVisible()
+await expect(locator).toBeHidden()
+
+await expect(locator).toBeEnabled()
+await expect(locator).toBeDisabled()
+
+await expect(locator).toBeEditable()
+await expect(locator).toBeEmpty()
+
+await expect(locator).toBeFocused()
+
+await expect(locator).toBeChecked()
+
+await expect(locator).toBeAttached()
+
+await expect(locator).toBeInViewport()
+
+await expect(locator).toHaveText(text)
+await expect(locator).toContainText(text)
+
+await expect(locator).toHaveValue(value)
+await expect(locator).toHaveValues(values)
+
+await expect(locator).toHaveAttribute(name, value)
+
+await expect(locator).toHaveClass(className)
+
+await expect(locator).toHaveCSS(property, value)
+
+await expect(locator).toHaveCount(count)
+
+await expect(locator).toHaveId(id)
+
+await expect(locator).toHaveJSProperty(name, value)
+
+await expect(locator).toHaveRole(role)
+
+await expect(locator).toHaveAccessibleName(name)
+
+await expect(locator).toHaveAccessibleDescription(description)
+
+await expect(locator).toHaveAccessibleErrorMessage(message)
+
+await expect(locator).toHaveScreenshot()
+
+await expect(locator).not.toBeVisible()
+
+
+// =========================
+// Page Assertions
+// =========================
+
+await expect(page).toHaveTitle(title)
+
+await expect(page).toHaveURL(url)
+
+await expect(page).toHaveScreenshot()
+
+await expect(page).not.toHaveTitle(title)
+
+await expect(page).not.toHaveURL(url)
+
+
+// =========================
+// API Response Assertions
+// =========================
+
+await expect(response).toBeOK()
+
+await expect(response).not.toBeOK()
+
+
+// =========================
+// Poll Assertions
+// =========================
+
+await expect.poll(fn).toBe(value)
+
+await expect.poll(fn).toEqual(value)
+
+await expect.poll(fn).toContain(value)
+
+await expect.poll(fn).toBeTruthy()
+
+await expect.poll(fn).toBeFalsy()
+
+
+// =========================
+// Soft Assertions
+// =========================
+
+expect.soft(actual).toBe(expected)
+
+expect.soft(actual).toEqual(expected)
+
+await expect.soft(locator).toBeVisible()
+
+await expect.soft(page).toHaveTitle(title)
+
+
+
+************************************** Methods wich perform actions() ***************************************************
+
+// =========================
+// NAVIGATION METHODS
+// =========================
+
+page.goto("https://example.com")
+page.reload()
+page.goBack()
+page.goForward()
+page.waitForURL("https://example.com")
+page.waitForLoadState()
+
+
+// =========================
+// INPUT METHODS
+// =========================
+
+page.fill('#name', 'Shashank')
+page.type('#name', 'Shashank')
+page.press('#name', 'Enter')
+page.check('#checkbox')
+page.uncheck('#checkbox')
+page.selectOption('#country', 'India')
+page.setInputFiles('#upload', 'file.txt')
+page.clear('#name')
+
+
+// =========================
+// MOUSE ACTION METHODS
+// =========================
+
+page.click('#btn')
+page.dblclick('#btn')
+page.hover('#btn')
+page.dragAndDrop('#source', '#target')
+
+page.mouse.move(100, 200)
+page.mouse.down()
+page.mouse.up()
+page.mouse.wheel(0, 500)
+
+
+// =========================
+// KEYBOARD METHODS
+// =========================
+
+page.keyboard.type('Hello')
+page.keyboard.press('Enter')
+page.keyboard.down('Shift')
+page.keyboard.up('Shift')
+page.keyboard.insertText('Hello')
+
+
+// =========================
+// LOCATOR METHODS
+// =========================
+
+page.locator('#name')
+page.locator('.btn')
+page.locator('input')
+
+page.getByText('Submit')
+page.getByRole('button')
+page.getByLabel('Username')
+page.getByPlaceholder('Enter Name')
+page.getByAltText('Logo')
+page.getByTitle('Home')
+page.getByTestId('submit-btn')
+
+
+// =========================
+// WAIT METHODS
+// =========================
+
+page.waitForTimeout(5000)
+page.waitForSelector('#name')
+page.waitForURL('https://example.com')
+page.waitForLoadState()
+page.waitForEvent('download')
+
+
+// =========================
+// INFORMATION METHODS
+// =========================
+
+page.title()
+page.url()
+page.content()
+page.textContent('#name')
+page.innerText('#name')
+page.innerHTML('#name')
+page.inputValue('#name')
+
+
+// =========================
+// SCREENSHOT METHODS
+// =========================
+
+page.screenshot()
+locator.screenshot()
+page.pdf()
+
+
+// =========================
+// FRAME METHODS
+// =========================
+
+page.frame()
+page.frames()
+page.frameLocator('#frame')
+
+
+// =========================
+// LOCATOR ACTION METHODS
+// =========================
+
+locator.click()
+locator.dblclick()
+locator.fill()
+locator.clear()
+locator.press()
+locator.hover()
+locator.focus()
+locator.blur()
+locator.check()
+locator.uncheck()
+locator.selectOption()
+locator.setInputFiles()
+locator.dragTo()
+locator.scrollIntoViewIfNeeded()
+locator.screenshot()
+
+locator.textContent()
+locator.innerText()
+locator.innerHTML()
+locator.inputValue()
+
+locator.isVisible()
+locator.isHidden()
+locator.isEnabled()
+locator.isDisabled()
+locator.isEditable()
+locator.isChecked()
+
+locator.count()
+locator.first()
+locator.last()
+locator.nth(0)
+
+
+// =========================
+// EXPECT METHODS
+// =========================
+
+await expect(locator).toBeVisible()
+await expect(locator).toBeHidden()
+await expect(locator).toBeEnabled()
+await expect(locator).toBeDisabled()
+await expect(locator).toBeEditable()
+await expect(locator).toBeChecked()
+await expect(locator).toBeEmpty()
+
+await expect(locator).toContainText("Text")
+await expect(locator).toHaveText("Text")
+await expect(locator).toHaveValue("Value")
+await expect(locator).toHaveAttribute("type", "text")
+await expect(locator).toHaveCount(5)
+
+await expect(page).toHaveTitle("Title")
+await expect(page).toHaveURL("https://example.com")
+
+
+// =========================
+// DIALOG METHODS
+// =========================
+
+page.on('dialog', async dialog => {
+    await dialog.accept()
+})
+
+page.on('dialog', async dialog => {
+    await dialog.dismiss()
+})
+
+dialog.message()
+dialog.type()
+dialog.accept()
+dialog.dismiss()
+
+If there are multiple assertions in a test case, all assertions should be implemented as soft assertions, except for the final assertion, which can be a hard assertion.
+
+Additionally, test cases should be categorized and grouped using appropriate tags such as Smoke and Regression while writing the test cases.
