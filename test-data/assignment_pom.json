@@ -1,0 +1,23 @@
+{
+    "baseUrl": "https://automationexercise.com/",
+    "searchProductName": "Tshirt",
+    "productId": 1,
+    "email": "shashank.singh@tavant.com",
+    "password": "Qwerty@12345",
+    "cardName": "Shashank Singh",
+    "cardNumber": "4111111111111111",
+    "cvc": "123",
+    "expiryMonth": "12",
+    "expiryYear": "2030",
+    "orderComment": "Automation Order",
+    "yourDeliveryAddressTitle": "Your delivery address",
+    "yourBillingAddressTitle": "Your billing address",
+    "title": "Mr.",
+    "name": "Shashank Singh",
+    "address": "123 tavant",
+    "cityState": "bangluru karnataka",
+    "zipcode": "560076",
+    "country": "India",
+    "mobile": "7053902883"
+  
+}

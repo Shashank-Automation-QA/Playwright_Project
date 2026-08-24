@@ -27,7 +27,7 @@ export default defineConfig({
   use: {
     headless: false,
     launchOptions: {
-      slowMo: 3000, // 1000ms = 1 second delay after each action
+      slowMo: 0, // 1000ms = 1 second delay after each action
     },
   },
 
