@@ -52,7 +52,7 @@ test.describe("Product Catalog", () => {
         await productPage.addProductToCart();
         await productPage.proceedToCheckout();
         const addressText = await productPage.billingAddress().textContent();
-        expect.soft(addressText).toContain(testData.yourDeliveryAddressTitle);
+        expect.soft(addressText).toContain(testData.yourBillingAddressTitle);
         expect.soft(addressText).toContain(testData.title);
         expect.soft(addressText).toContain(testData.name);
         expect.soft(addressText).toContain(testData.address);
