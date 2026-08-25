@@ -12,8 +12,11 @@ test.describe("Product Catalog", () => {
     let CommonUtilsPage: CommonUtils;
 
     test.beforeEach(async ({ page }) => {
+
+        // Creating object for both sunction pages
         productPage = new ProductCatalog(page);
         CommonUtilsPage = new CommonUtils(page);
+        
         await CommonUtilsPage.openApplication(testData.baseUrl);
         await expect.soft(page.getByAltText('Website for automation practice')).toBeVisible();
         await CommonUtilsPage.login(testData.email, testData.password);
