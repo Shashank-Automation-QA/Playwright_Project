@@ -13,7 +13,7 @@ test.describe("Product Catalog", () => {
 
     test.beforeEach(async ({ page }) => {
 
-        // Creating object for both sunction pages
+        // Creating object for both function pages
         productPage = new ProductCatalog(page);
         CommonUtilsPage = new CommonUtils(page);
         
