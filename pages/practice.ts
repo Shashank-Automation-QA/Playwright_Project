@@ -32,6 +32,23 @@ export class PracticePage {
     frameResetButton = () => this.practiceFrame().getByRole('button', {name: 'Reset'});
     frameSubmissionResult = () => this.practiceFrame().locator('.result');
 
+    
+    parentFrame = () => this.page.frameLocator('#parent-frame');
+    parentFrameHeading = () => this.parentFrame().getByRole('heading', {name: 'Parent Frame'});
+    parentFrameText = () => this.parentFrame().locator('#parent-frame-text');
+
+    childFrame = () => this.parentFrame().frameLocator('#child-frame');
+    childFrameHeading = () => this.childFrame().getByRole('heading', {name: 'Child Frame'});
+    childNameInput = () => this.childFrame().getByLabel('Name');
+    childMessageInput = () => this.childFrame().getByLabel('Message');
+    childSubmitButton = () => this.childFrame().getByRole('button', {name: 'Submit'});
+    childResetButton = () => this.childFrame().getByRole('button', {name: 'Reset'});
+    childSuccessMessage = () => this.childFrame().locator('.result');
+    newTabLink = () => this.page.getByRole('link', {name: 'Open New Tab'});
+    openWindowButton = () => this.page.locator('#openWindow');
+
+
+
     // **************************************** Methods ****************************************
 
     async performDragAndDrop() {
@@ -92,7 +109,7 @@ export class PracticePage {
         });
         if (urgent) {await this.urgentCheckbox().check();}
     }
-    
+
     async submitFrameForm() {
         await this.frameSubmitButton().click();
     }
@@ -106,6 +123,62 @@ export class PracticePage {
      */
     async scrollBackToMainPageSection() {
         await this.framesAndWindowsHeading().scrollIntoViewIfNeeded();
+    }
+
+        async getParentFrameText() {
+        return await this.parentFrameText().textContent();
+    }
+
+    async fillChildFrameForm(
+        name: string,
+        message: string
+    ) {
+        await this.childNameInput().fill(name);
+        await this.childMessageInput().fill(message);
+    }
+
+    async submitChildFrameForm() {
+        await this.childSubmitButton().click();
+    }
+
+    async resetChildFrameForm() {
+        await this.childResetButton().click();
+    }
+
+    /*
+     * No command is required to switch from the child frame
+     * back to the parent frame.
+     *
+     * Calling parentFrame() targets the parent frame again.
+     */
+    async getParentHeadingAfterChildFrameOperation() {
+        return await this.parentFrameHeading().textContent();
+    }
+
+    /*
+     * No command is required to switch back to the main page.
+     *
+     * Calling this.page targets the main page again.
+     */
+    async scrollToMainPageHeading() {
+        await this.framesAndWindowsHeading()
+            .scrollIntoViewIfNeeded();
+    }
+
+    async openNewTab() {
+    const newTabPromise = this.page.waitForEvent('popup');
+    await this.newTabLink().click();
+    const newTab = await newTabPromise;
+    await newTab.waitForLoadState();
+    return newTab;
+    }
+
+    async openWindow() {
+    const popupPromise = this.page.waitForEvent('popup');
+    await this.openWindowButton().click();
+    const childWindow =await popupPromise;
+    await childWindow.waitForLoadState();
+    return childWindow;
     }
 
 }

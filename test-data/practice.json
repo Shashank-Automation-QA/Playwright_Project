@@ -26,5 +26,13 @@
             "message": "Learning iframe handling using Playwright",
             "priority": "High",
             "urgent": true
+            },
+            
+"nestedFrame": {
+            "name": "Shashank Singh",
+            "message": "Learning nested iframe handling using Playwright",
+            "parentHeading": "Parent Frame",
+            "childHeading": "Child Frame",
+            "successMessage": "Form submitted successfully"
             }
 }
