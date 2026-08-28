@@ -1,0 +1,66 @@
+==================== PYCHARM → VS CODE SHORTCUTS ====================
+
+FILE & NAVIGATION
+Shift + Shift         → Ctrl + P              Open/Search File
+Ctrl + B             → F12                   Go to Definition
+Ctrl + Alt + Left    → Alt + Left            Go Back
+Ctrl + Alt + Right   → Alt + Right           Go Forward
+
+SEARCH
+Ctrl + F             → Ctrl + F              Find
+Ctrl + R             → Ctrl + H              Replace
+Ctrl + Shift + F     → Ctrl + Shift + F      Find in Project
+Ctrl + Shift + R     → Ctrl + Shift + H      Replace in Project
+
+EDITING
+Ctrl + D             → Shift + Alt + Down    Duplicate Line
+Ctrl + Y             → Ctrl + Shift + K      Delete Line
+Shift + Alt + Up/Down→ Alt + Up/Down         Move Line
+Ctrl + /             → Ctrl + /              Comment Line
+Ctrl + Shift + /     → Shift + Alt + A       Block Comment
+
+REFACTORING
+Shift + F6           → F2                    Rename
+Alt + Enter          → Ctrl + .              Quick Fix
+Alt + F7             → Shift + F12           Find References
+
+FORMATTING
+Ctrl + Alt + L       → Shift + Alt + F       Format Code
+Ctrl + Alt + O       → Shift + Alt + O       Organize Imports
+
+DEBUGGING
+Shift + F10          → Ctrl + F5             Run
+Shift + F9           → F5                    Debug
+Ctrl + F8            → F9                    Toggle Breakpoint
+F8                   → F10                   Step Over
+F7                   → F11                   Step Into
+Shift + F8           → Shift + F11           Step Out
+
+EXPLORER & TERMINAL
+Alt + 1              → Ctrl + Shift + E      Explorer
+Alt + F12            → Ctrl + `              Terminal
+
+PLAYWRIGHT MOST USED
+Ctrl + P             Open File
+Ctrl + Shift + F     Search Project
+F12                  Go to Definition
+F2                   Rename
+Ctrl + .             Quick Fix
+Shift + Alt + F      Format Code
+Ctrl + `             Terminal
+F5                   Debug
+Shift + Alt + Down   Duplicate Line
+Ctrl + Shift + E     Explorer
+
+MOST IMPORTANT TO REMEMBER
+
+PyCharm              VS Code
+------------------------------------------------
+Ctrl + D         →   Shift + Alt + Down
+Ctrl + Y         →   Ctrl + Shift + K
+Alt + Enter      →   Ctrl + .
+Shift + F6       →   F2
+Ctrl + Alt + L   →   Shift + Alt + F
+Shift + F9       →   F5
+Alt + F12        →   Ctrl + `
+Ctrl + B         →   F12

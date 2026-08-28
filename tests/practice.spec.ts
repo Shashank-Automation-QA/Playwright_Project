@@ -1,26 +1,51 @@
 import { test, expect } from '@playwright/test';
-import path from 'node:path';
+import path, { join } from 'node:path';
+import { cwd } from 'node:process';
 
 test('TC_001 - Drag and Drop', async ({ page }) => {
     await page.goto('https://testautomationpractice.blogspot.com/');
-    await page.locator('#draggable').dragTo(page.locator('#droppable'));
+
+    // Below code for drag and drop
+    //we preffer this aproach because this is locator base and locator can be save as vriable in POM model but below one we are not using locator
+    await page.locator('#draggable').dragTo(page.locator('#droppable'));  
+                    // OR
+    await page.dragAndDrop('#draggable','#droppable');
+
     await expect(page.locator('#droppable')).toContainText('Dropped!');
 });
 
 test('TC_003 - Single File Upload', async ({ page }) => {
     await page.goto('https://testautomationpractice.blogspot.com/');
-    const filePath = path.resolve('test-data/shashank.txt');
+    const fileName = 'sample.txt';
+
+    // Below code is for file path
+    const filePath = path.join(process.cwd(),"test-data", fileName);
+                        // OR
+    // const filePath = path.resolve(`test-data/${fileName}`);
+
+    // Below code is for uploading file
     await page.locator('#singleFileInput').setInputFiles(filePath);
-    await expect(page.locator('#singleFileInput'))
+
+
+    await page.getByRole('button', { name: 'Upload Single File' }).click();
+    await expect(page.locator('#singleFileStatus')).toBeVisible();
+    await expect(page.locator('#singleFileStatus')).toContainText(`Single file selected: ${fileName}`)
 });
 
-test('TC_004 - Multiple File Upload', async ({ page }) => {
+test.only('TC_004 - Multiple File Upload', async ({ page }) => {
     await page.goto('https://testautomationpractice.blogspot.com/');
-    await page.locator('#miltipleFilesInput').setInputFiles(['test-data/shashank.txt','test-data/shashank1.txt']);
-    await expect(page.locator('#singleFileInput'))
+    const fileName1 = 'sample.txt'
+    const fileName2 = 'pdfsample.pdf'
+    const filePath = join(process.cwd(), "test-data")
+    await page.locator('#multipleFilesInput').setInputFiles([`${filePath}/${fileName1}`, `${filePath}/${fileName2}`]);
+    await expect(page.locator('#multipleFilesInput')).toBeVisible();
+    await page.pause()
+    await expect(page.locator('#multipleFilesStatus')).toContainText("sample.txt")
+    await expect(page.locator('#multipleFilesStatus')).toContainText("pdfsample.pdf")
+
 });
 
-test.only('TC_005 - Download text file', async ({ page }) => {
+test('TC_005 - Download text file', async ({ page }) => {
     await page.goto('https://testautomationpractice.blogspot.com/p/download-files_25.html');
     await page.locator('#inputText').fill('Shashank');
 
