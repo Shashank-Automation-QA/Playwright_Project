@@ -123,7 +123,7 @@ test.describe('Practice Tests', () => {
     console.log(await newTab.url());
     });
 
-    test('TC_013 - Open New Window', async ({ page }) => {
+    test('TC_013 - Open New Window', async () => {
     await CommonUtilsPage.openApplication(testData.urls.framesPage);
     const childWindow = await practicePage.openWindow();
     console.log(await childWindow.title());
