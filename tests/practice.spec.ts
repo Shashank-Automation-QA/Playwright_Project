@@ -1,64 +1,74 @@
-import { test, expect } from '@playwright/test';
-import path, { join } from 'node:path';
-import { cwd } from 'node:process';
+import { test, expect } from "@playwright/test";
+import { PracticePage } from "../pages/practice";
+import testData from "../test-data/practice.json";
+import { CommonUtils } from "../Utils/CommonUtils";
 
-test('TC_001 - Drag and Drop', async ({ page }) => {
-    await page.goto('https://testautomationpractice.blogspot.com/');
+test.describe('Practice Tests', () => {
 
-    // Below code for drag and drop
-    //we preffer this aproach because this is locator base and locator can be save as vriable in POM model but below one we are not using locator
-    await page.locator('#draggable').dragTo(page.locator('#droppable'));  
-                    // OR
-    await page.dragAndDrop('#draggable','#droppable');
+    let practicePage: PracticePage;
+    let CommonUtilsPage: CommonUtils;
 
-    await expect(page.locator('#droppable')).toContainText('Dropped!');
+    test.beforeEach(async ({ page }) => {
+        practicePage = new PracticePage(page);
+        CommonUtilsPage = new CommonUtils(page);
+    });
+
+    test('TC_001 - Drag And Drop', async () => {
+        await CommonUtilsPage.openApplication(testData.urls.practicePage);
+        await practicePage.performDragAndDrop();
+        await expect(practicePage.droppable()).toContainText('Dropped!');
+    });
+
+    test('TC_003 - Single File Upload', async () => {
+        await CommonUtilsPage.openApplication(testData.urls.practicePage);
+        await practicePage.uploadSingleFile(testData.files.singleFile);
+        await expect(practicePage.singleFileStatus()).toContainText(`Single file selected: ${testData.files.singleFile}`);
+    });
+
+    test('TC_004 - Multiple File Upload', async () => {
+        await CommonUtilsPage.openApplication(testData.urls.practicePage);
+        await practicePage.uploadMultipleFiles(testData.files.multipleFiles);
+        for (const file of testData.files.multipleFiles) {
+            await expect(practicePage.multipleFileStatus()).toContainText(file);
+        }
+    });
+
+    test('TC_005 - Download Text File', async () => {
+        await CommonUtilsPage.openApplication(testData.urls.downloadPage);
+        const download = await practicePage.downloadTextFile(testData.download.text);
+        expect(download.suggestedFilename()).toMatch(/\.txt$/);
+    });
+
+    test('TC_006 - Accept Alert', async () => {
+        await CommonUtilsPage.openApplication(testData.urls.practicePage);
+        const dialog = await practicePage.acceptSimpleAlert();
+        expect(dialog.type).toBe(testData.dialogs.simpleAlert.type);
+        expect(dialog.message).toBe(testData.dialogs.simpleAlert.message);
+    });
+
+    test('TC_007 - Dismiss Alert', async () => {
+        await CommonUtilsPage.openApplication(testData.urls.practicePage);
+        const dialog = await practicePage.dismissConfirmationAlert();
+        expect(dialog.type).toBe(testData.dialogs.confirmationAlert.type);
+        expect(dialog.message).toBe(testData.dialogs.confirmationAlert.message);
+    });
+
+    test('TC_008 - Prompt Alert', async () => {
+        await CommonUtilsPage.openApplication(testData.urls.practicePage);
+        const dialog = await practicePage.handlePromptAlert(testData.dialogs.promptAlert.inputText);
+        expect(dialog.type).toBe(testData.dialogs.promptAlert.type);
+        expect(dialog.message).toBe(testData.dialogs.promptAlert.message);
+    });
+
+    test('TC_009 - Fill and submit form inside iframe', async () => {
+        await expect(practicePage.frameHeading()).toBeVisible();
+        await practicePage.fillFrameForm(testData.frameForm.name,testData.frameForm.message,testData.frameForm.priority,testData.frameForm.urgent);
+        await expect(practicePage.frameNameInput()).toHaveValue(testData.frameForm.name);
+        await expect(practicePage.frameMessageInput()).toHaveValue(testData.frameForm.message);
+        await expect(practicePage.framePriorityDropdown()).toHaveValue(testData.frameForm.priority.toLowerCase());
+        await expect(practicePage.urgentCheckbox()).toBeChecked();
+        await practicePage.submitFrameForm();
+        await expect(practicePage.frameSubmissionResult()).toBeVisible();
+    });
+
 });
-
-test('TC_003 - Single File Upload', async ({ page }) => {
-    await page.goto('https://testautomationpractice.blogspot.com/');
-    const fileName = 'sample.txt';
-
-    // Below code is for file path
-    const filePath = path.join(process.cwd(),"test-data", fileName);
-                        // OR
-    // const filePath = path.resolve(`test-data/${fileName}`);
-
-    // Below code is for uploading file
-    await page.locator('#singleFileInput').setInputFiles(filePath);
-
-
-    await page.getByRole('button', { name: 'Upload Single File' }).click();
-    await expect(page.locator('#singleFileStatus')).toBeVisible();
-    await expect(page.locator('#singleFileStatus')).toContainText(`Single file selected: ${fileName}`)
-});
-
-test.only('TC_004 - Multiple File Upload', async ({ page }) => {
-    await page.goto('https://testautomationpractice.blogspot.com/');
-    const fileName1 = 'sample.txt'
-    const fileName2 = 'pdfsample.pdf'
-    const filePath = join(process.cwd(), "test-data")
-    await page.locator('#multipleFilesInput').setInputFiles([`${filePath}/${fileName1}`, `${filePath}/${fileName2}`]);
-    await expect(page.locator('#multipleFilesInput')).toBeVisible();
-    await page.pause()
-    await expect(page.locator('#multipleFilesStatus')).toContainText("sample.txt")
-    await expect(page.locator('#multipleFilesStatus')).toContainText("pdfsample.pdf")
-
-});
-
-test('TC_005 - Download text file', async ({ page }) => {
-    await page.goto('https://testautomationpractice.blogspot.com/p/download-files_25.html');
-    await page.locator('#inputText').fill('Shashank');
-
-    const downloadPromise = page.waitForEvent('download');
-        
-    await page.getByRole('button', { name: 'Generate and Download Text File' }).click();
-    await page.getByRole('link', { name: 'Download Text File' }).click();
-
-    const download = await downloadPromise;
-    // const target = path.join(test.info().outputDir,download.suggestedFilename())
-    await download.saveAs(`downloads/${download.suggestedFilename()}`);
-    // await download.saveAs(target);
-    expect(download.suggestedFilename()).toMatch(/\.txt$/);
-});
-
-

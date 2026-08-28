@@ -632,3 +632,52 @@ dialog.dismiss()
 If there are multiple assertions in a test case, all assertions should be implemented as soft assertions, except for the final assertion, which can be a hard assertion.
 
 Additionally, test cases should be categorized and grouped using appropriate tags such as Smoke and Regression while writing the test cases.
+
+
+In playwright we have concept of event managemant handler so here we have 3 event mangers which are given below basically the 
+concept of event manager is to wait and check wether the event is completed or not if completed then perform for the next code
+steps which are present inside the event handler block
+1.  on               ex.   security gaurd standing and check every one 
+2.  once             ex.   security gaurd satnding and only loking for one person and going hone
+3.  waitForEvent     ex.   me itself standing and looking for the specific person and taking home with myself
+
+Syntax for on    >>
+// Execution Step 2
+page.on("event name", async dialog => {     
+await dialog.accept();
+});
+// execution Step 1
+await button.click();         
+
+
+
+Syntax for once    >>
+// Execution Step 2
+page.once("event name", async dialog => {
+await dialog.accept();
+});
+// Execution Step 2
+await button.click();
+
+
+
+Syntax for waitForEvent   >>
+
+**************    Only for understanding     *************
+
+const eventPromise = page.waitForEvent('eventName');     
+await actionThatTriggersEvent();                         
+
+const eventObject = await eventPromise;
+await handleEvent(eventObject);
+
+************************************************************
+
+Explaination   >>
+
+const dialogPromise = page.waitForEvent('dialog');       >>>  waiting for event create
+await button.click();                                    >>>  clicking for generating event
+
+const dialog = await dialogPromise;                      >>>  once the event created it retuns the promise that event is created 
+await dialog.accept();                                   >>>  once promise return it will perform dialog action
+
