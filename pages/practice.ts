@@ -1,4 +1,4 @@
-import { Page } from "@playwright/test";
+import { Locator, Page } from "@playwright/test";
 import path from "node:path";
 
 export class PracticePage {
@@ -46,6 +46,7 @@ export class PracticePage {
     childSuccessMessage = () => this.childFrame().locator('.result');
     newTabLink = () => this.page.getByRole('link', {name: 'Open New Tab'});
     openWindowButton = () => this.page.locator('#openWindow');
+    acceptButton = () => this.page.getByRole('button', {name: 'Accept All'});
 
 
 
@@ -101,12 +102,19 @@ export class PracticePage {
         return details;
     }
 
+    // async handleAlert(alertButton: Locator, inputText?: string) {
+    //     const dialogPromise = this.page.waitForEvent('dialog');
+    //     await alertButton.click();
+    //     const dialog = await dialogPromise;
+    //     const details = {type: dialog.type(), message: dialog.message()};
+    //     await dialog.accept(inputText);
+    //     return details;
+    // }
+
     async fillFrameForm(name: string, message: string, priority: string, urgent: boolean) {
         await this.frameNameInput().fill(name);
         await this.frameMessageInput().fill(message);
-        await this.framePriorityDropdown().selectOption({
-            label: priority
-        });
+        await this.framePriorityDropdown().selectOption({label: priority});
         if (urgent) {await this.urgentCheckbox().check();}
     }
 
@@ -117,10 +125,7 @@ export class PracticePage {
     async resetFrameForm() {
         await this.frameResetButton().click();
     }
-    /*
-     * We don't need to switch back manually.
-     * Using this.page automatically targets the main page.
-     */
+
     async scrollBackToMainPageSection() {
         await this.framesAndWindowsHeading().scrollIntoViewIfNeeded();
     }
@@ -129,10 +134,7 @@ export class PracticePage {
         return await this.parentFrameText().textContent();
     }
 
-    async fillChildFrameForm(
-        name: string,
-        message: string
-    ) {
+    async fillChildFrameForm(name: string, message: string) {
         await this.childNameInput().fill(name);
         await this.childMessageInput().fill(message);
     }
@@ -145,40 +147,21 @@ export class PracticePage {
         await this.childResetButton().click();
     }
 
-    /*
-     * No command is required to switch from the child frame
-     * back to the parent frame.
-     *
-     * Calling parentFrame() targets the parent frame again.
-     */
     async getParentHeadingAfterChildFrameOperation() {
         return await this.parentFrameHeading().textContent();
     }
 
-    /*
-     * No command is required to switch back to the main page.
-     *
-     * Calling this.page targets the main page again.
-     */
     async scrollToMainPageHeading() {
         await this.framesAndWindowsHeading()
             .scrollIntoViewIfNeeded();
     }
 
-    async openNewTab() {
+    async openNewTaborWindow(tabOrWindowLink: Locator) {
     const newTabPromise = this.page.waitForEvent('popup');
-    await this.newTabLink().click();
-    const newTab = await newTabPromise;
-    await newTab.waitForLoadState();
-    return newTab;
-    }
-
-    async openWindow() {
-    const popupPromise = this.page.waitForEvent('popup');
-    await this.openWindowButton().click();
-    const childWindow =await popupPromise;
-    await childWindow.waitForLoadState();
-    return childWindow;
+    await tabOrWindowLink.click();
+    const newTabOrWindow = await newTabPromise;
+    await newTabOrWindow.waitForLoadState();
+    return newTabOrWindow;
     }
 
 }

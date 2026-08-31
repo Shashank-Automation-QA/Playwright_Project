@@ -681,3 +681,36 @@ await button.click();                                    >>>  clicking for gener
 const dialog = await dialogPromise;                      >>>  once the event created it retuns the promise that event is created 
 await dialog.accept();                                   >>>  once promise return it will perform dialog action
 
+
+    // test.only('TC_010 - Handle form inside nested child frame', async () => {
+    //     await CommonUtilsPage.openApplication(testData.urls.framesPage);
+    //     await practicePage.acceptButton().click();
+    //     await expect(practicePage.parentFrameHeading()).toHaveText(testData.nestedFrame.parentHeading);
+    //     // Verify child frame
+    //     await expect(practicePage.childFrameHeading()).toHaveText(testData.nestedFrame.childHeading);
+    //     // Enter data inside child frame
+    //     await practicePage.fillChildFrameForm(testData.nestedFrame.name, testData.nestedFrame.message);
+    //     // Validate entered values
+    //     await expect(practicePage.childNameInput()).toHaveValue(testData.nestedFrame.name);
+    //     await expect(practicePage.childMessageInput()).toHaveValue(testData.nestedFrame.message);
+    //     // Submit form inside child frame
+    //     await practicePage.submitChildFrameForm();
+    //     // Validate result inside child frame
+    //     await expect(practicePage.childSuccessMessage()).toContainText(testData.nestedFrame.successMessage);
+    // });
+
+    // test('TC_011 - Reset child frame and access parent and main page', async () => {
+    //     await CommonUtilsPage.openApplication(testData.urls.framesPage);
+
+    //     await practicePage.fillChildFrameForm(testData.nestedFrame.name, testData.nestedFrame.message);
+
+    //     await practicePage.resetChildFrameForm();
+
+    //     await expect(practicePage.childNameInput()).toHaveValue('');
+    //     await expect(practicePage.childMessageInput()).toHaveValue('');
+
+    //     await expect(practicePage.parentFrameHeading()).toHaveText(testData.nestedFrame.parentHeading);
+
+    //     await practicePage.scrollToMainPageHeading();
+    //     await expect(practicePage.framesAndWindowsHeading()).toBeVisible();
+    // });

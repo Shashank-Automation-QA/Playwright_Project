@@ -61,7 +61,7 @@ test('TC_005 - Download text file', async ({ page }) => {
     expect(download.suggestedFilename()).toMatch(/\.txt$/);
 });
 
-test.only('TC_006 - Accept Popup', async ({ page }) => {
+test('TC_006 - Accept Popup', async ({ page }) => {
     // step1
     await page.goto('https://testautomationpractice.blogspot.com/');
 
