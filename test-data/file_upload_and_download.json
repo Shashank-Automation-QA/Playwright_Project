@@ -1,0 +1,17 @@
+{
+  "urls": {
+            "practicePage": "https://testautomationpractice.blogspot.com/",
+            "downloadPage": "https://testautomationpractice.blogspot.com/p/download-files_25.html",
+            "framesPage": "https://playwrightlab.github.io/index.html"
+           },
+
+  "files": {
+            "singleFile": "sample.txt",
+            "multipleFiles": ["sample.txt","pdfsample.pdf"]
+           },
+
+  "download": {
+            "text": "Shashank",
+            "fileExtension": ".txt"
+              }
+}

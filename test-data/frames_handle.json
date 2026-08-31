@@ -1,0 +1,22 @@
+{
+  "urls": {
+            "practicePage": "https://testautomationpractice.blogspot.com/",
+            "downloadPage": "https://testautomationpractice.blogspot.com/p/download-files_25.html",
+            "framesPage": "https://playwrightlab.github.io/index.html"
+           },
+
+"frameForm": {
+            "name": "Shashank Singh",
+            "message": "Learning iframe handling using Playwright",
+            "priority": "High",
+            "urgent": true
+            },
+            
+"nestedFrame": {
+            "name": "Shashank Singh",
+            "message": "Learning nested iframe handling using Playwright",
+            "parentHeading": "Parent Frame",
+            "childHeading": "Child Frame",
+            "successMessage": "Form submitted successfully"
+            }
+}

@@ -42,45 +42,78 @@ test.describe('Practice Tests', () => {
     test('TC_006 - Accept Alert @smoke', async () => {
         await CommonUtilsPage.openApplication(testData.urls.practicePage);
         const dialog = await practicePage.acceptSimpleAlert();
-        expect(dialog.type).toBe(testData.dialogs.simpleAlert.type);
+        expect.soft(dialog.type).toBe(testData.dialogs.simpleAlert.type);
         expect(dialog.message).toBe(testData.dialogs.simpleAlert.message);
     });
 
     test('TC_007 - Dismiss Alert @smoke', async () => {
         await CommonUtilsPage.openApplication(testData.urls.practicePage);
         const dialog = await practicePage.dismissConfirmationAlert();
-        expect(dialog.type).toBe(testData.dialogs.confirmationAlert.type);
+        expect.soft(dialog.type).toBe(testData.dialogs.confirmationAlert.type);
         expect(dialog.message).toBe(testData.dialogs.confirmationAlert.message);
     });
 
     test('TC_008 - Prompt Alert @smoke', async () => {
         await CommonUtilsPage.openApplication(testData.urls.practicePage);
         const dialog = await practicePage.handlePromptAlert(testData.dialogs.promptAlert.inputText);
-        expect(dialog.type).toBe(testData.dialogs.promptAlert.type);
+        expect.soft(dialog.type).toBe(testData.dialogs.promptAlert.type);
         expect(dialog.message).toBe(testData.dialogs.promptAlert.message);
     });
 
     test.only('TC_009 - Fill and submit form inside iframe @smoke', async () => {
         await CommonUtilsPage.openApplication(testData.urls.framesPage);
         await practicePage.acceptButton().click();
-        await expect(practicePage.frameHeading()).toBeVisible();
+        await expect.soft(practicePage.frameHeading()).toBeVisible();
         await practicePage.fillFrameForm(testData.frameForm.name,testData.frameForm.message,testData.frameForm.priority,testData.frameForm.urgent);
-        await expect(practicePage.frameNameInput()).toHaveValue(testData.frameForm.name);
-        await expect(practicePage.frameMessageInput()).toHaveValue(testData.frameForm.message);
-        await expect(practicePage.framePriorityDropdown()).toHaveValue(testData.frameForm.priority.toLowerCase());
-        await expect(practicePage.urgentCheckbox()).toBeChecked();
+        await expect.soft(practicePage.frameNameInput()).toHaveValue(testData.frameForm.name);
+        await expect.soft(practicePage.frameMessageInput()).toHaveValue(testData.frameForm.message);
+        await expect.soft(practicePage.framePriorityDropdown()).toHaveValue(testData.frameForm.priority.toLowerCase());
+        await expect.soft(practicePage.urgentCheckbox()).toBeChecked();
         await practicePage.submitFrameForm();
         await expect(practicePage.frameSubmissionResult()).toBeVisible();
     });
 
-    test('TC_010 - Open New Tab @smoke', async () => {
+        test.only('TC_010 - Handle form inside nested child frame', async () => {
+        await CommonUtilsPage.openApplication(testData.urls.framesPage);
+        await practicePage.acceptButton().click();
+        await expect.soft(practicePage.parentFrameHeading()).toHaveText(testData.nestedFrame.parentHeading);
+        // Verify child frame
+        await expect.soft(practicePage.childFrameHeading()).toHaveText(testData.nestedFrame.childHeading);
+        // Enter data inside child frame
+        await practicePage.fillChildFrameForm(testData.nestedFrame.name, testData.nestedFrame.message);
+        // Validate entered values
+        await expect.soft(practicePage.childNameInput()).toHaveValue(testData.nestedFrame.name);
+        await expect.soft(practicePage.childMessageInput()).toHaveValue(testData.nestedFrame.message);
+        // Submit form inside child frame
+        await practicePage.submitChildFrameForm();
+        // Validate result inside child frame
+        await expect(practicePage.childSuccessMessage()).toContainText(testData.nestedFrame.successMessage);
+    });
+
+    test('TC_011 - Reset child frame and access parent and main page', async () => {
+        await CommonUtilsPage.openApplication(testData.urls.framesPage);
+
+        await practicePage.fillChildFrameForm(testData.nestedFrame.name, testData.nestedFrame.message);
+
+        await practicePage.resetChildFrameForm();
+
+        await expect.soft(practicePage.childNameInput()).toHaveValue('');
+        await expect.soft(practicePage.childMessageInput()).toHaveValue('');
+
+        await expect.soft(practicePage.parentFrameHeading()).toHaveText(testData.nestedFrame.parentHeading);
+
+        await practicePage.scrollToMainPageHeading();
+        await expect(practicePage.framesAndWindowsHeading()).toBeVisible();
+    });
+
+    test('TC_012 - Open New Tab @smoke', async () => {
     await CommonUtilsPage.openApplication(testData.urls.framesPage);
     const newTab = await practicePage.openNewTaborWindow(practicePage.newTabLink());
     await expect(newTab).toHaveTitle(/.*/);
     console.log(await newTab.url());
     });
 
-    test('TC_011 - Open New Window @smoke', async () => {
+    test('TC_013 - Open New Window @smoke', async () => {
     await CommonUtilsPage.openApplication(testData.urls.framesPage);
     const childWindow = await practicePage.openNewTaborWindow(practicePage.openWindowButton());
     console.log(await childWindow.title());

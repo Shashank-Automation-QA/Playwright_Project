@@ -1,0 +1,13 @@
+{
+  "urls": {
+            "practicePage": "https://testautomationpractice.blogspot.com/",
+            "downloadPage": "https://testautomationpractice.blogspot.com/p/download-files_25.html",
+            "framesPage": "https://playwrightlab.github.io/index.html"
+           },
+
+  "dialogs": {
+            "simpleAlert": {"type": "alert", "message": "I am an alert box!"},
+            "confirmationAlert": {"type": "confirm", "message": "Press a button!"},
+            "promptAlert": {"type": "prompt", "message": "Please enter your name:", "inputText": "Hi...."}
+             }
+}

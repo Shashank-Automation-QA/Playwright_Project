@@ -6,7 +6,7 @@ import { CommonUtils } from "../Utils/CommonUtils";
 import { CheckoutAndOrderPlacement } from "../pages/CheckoutAndOrderPlacement";
 import testData from "../test-data/assignment_pom.json";
 
-test.describe("Product Catalog", () => {
+test.describe("Checkout And Order Placement", () => {
 
     let productPage: CheckoutAndOrderPlacement;
     let CommonUtilsPage: CommonUtils;
