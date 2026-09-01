@@ -1,5 +1,6 @@
 import { Locator, Page } from "@playwright/test";
 import path from "node:path";
+import { from } from "node:stream/iter";
 
 export class FramesHandlePage {
 
@@ -32,12 +33,13 @@ export class FramesHandlePage {
     acceptButton = () => this.page.getByRole('button', {name: 'Accept All'});
 
     // **************************************** Methods ***************************************
-
-    async fillFrameForm(frameForm: {name: string, message: string, priority: string, urgent: boolean}) {
-        await this.frameNameInput().fill(frameForm.name);
-        await this.frameMessageInput().fill(frameForm.message);
-        await this.framePriorityDropdown().selectOption({label: frameForm.priority});
-        if (frameForm.urgent) {await this.urgentCheckbox().check();}
+        
+    async fillFrameForm(frameForm: object) {
+        const form = frameForm as {name: string, message: string, priority: string, urgent: boolean};    //type casting 
+        await this.frameNameInput().fill(form.name);
+        await this.frameMessageInput().fill(form.message);
+        await this.framePriorityDropdown().selectOption({label: form.priority});
+        if (form.urgent) {await this.urgentCheckbox().check();}
     }
 
     async submitFrameForm() {
